@@ -1,1 +1,179 @@
+openapi: 3.0.3
+info:
+  title: Onboarding API
+  description: |-
+   STD22062
+  version: 1.2
+servers:
+  - url: https://STD22062.com/api/v1
 
+paths:
+  /students:
+    get:
+      tags:
+        - default
+      summary: Show the student
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref:  '#/components/schemas/Student'
+
+            application/xml:
+              schema:
+                  $ref:  '#/components/schemas/Student'
+        '500':
+          description: Internal Server Error
+    post:
+      summary: Add a new student
+      requestBody:
+        description: Create a new student
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '500':
+          description: Internal Server Error
+    put:
+      summary: Update student
+      requestBody:
+        description: Update an existent student
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      summary: Delete student
+      operationId:
+        description : Delete an existent student
+      parameters:
+        - name: studentname
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid studentname supplied
+        '404':
+          description: student not found
+    /teachers:
+      get:
+        tags:
+          - default
+        summary: Show the teacher
+        responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Teacher'
+
+              application/xml:
+                schema:
+                  $ref: '#/components/schemas/Teacher'
+          '500':
+            description: Internal Server Error
+      post:
+        summary: Add a new teacher
+        requestBody:
+          description: Create a new teacher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          required: true
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Teacher'
+              application/xml:
+                schema:
+                  $ref: '#/components/schemas/Teacher'
+          '500':
+            description: Internal Server Error
+
+
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Vali
+        birthday:
+          type: string
+          example: 2003-06-03
+      xml:
+        name: student
+
+    Teacher:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+        type: string
+        example: Ryan
+        courses:
+          type: array
+          items:
+            type: object
+            properties:
+              coursName:
+                type: string
+                example: API
+              courseCode:
+                type: string
+                example: web-service
+              courseDuration:
+                type: string
+                example: 2h
+      xml:
+        name: teacher
