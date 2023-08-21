@@ -1,8 +1,7 @@
 openapi: 3.0.3
 info:
   title: Onboarding API
-  description: |-
-   STD22062
+  description: STD22062
   version: 1.2
 servers:
   - url: https://STD22062.com/api/v1
@@ -19,11 +18,10 @@ paths:
           content:
             application/json:
               schema:
-                  $ref:  '#/components/schemas/Student'
-
+                $ref: '#/components/schemas/Student'
             application/xml:
               schema:
-                  $ref:  '#/components/schemas/Student'
+                $ref: '#/components/schemas/Student'
         '500':
           description: Internal Server Error
     post:
@@ -54,9 +52,9 @@ paths:
         '500':
           description: Internal Server Error
     put:
-      summary: Update student
+      summary: Update an existing student
       requestBody:
-        description: Update an existent student
+        description: Update an existent student in the university
         content:
           application/json:
             schema:
@@ -67,71 +65,27 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/Student'
+        required: true
       responses:
-        default:
-          description: successful operation
-    delete:
-      summary: Delete student
-      operationId:
-        description : Delete an existent student
-      parameters:
-        - name: studentname
-          in: path
-          description: The name that needs to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Invalid studentname supplied
-        '404':
-          description: student not found
-    /teachers:
-      get:
-        tags:
-          - default
-        summary: Show the teacher
-        responses:
-          '200':
-            description: successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Teacher'
-
-              application/xml:
-                schema:
-                  $ref: '#/components/schemas/Teacher'
-          '500':
-            description: Internal Server Error
-      post:
-        summary: Add a new teacher
-        requestBody:
-          description: Create a new teacher
+        '200':
+          description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teacher'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Teacher'
-            application/x-www-form-urlencoded:
-              schema:
-                $ref: '#/components/schemas/Teacher'
-          required: true
-        responses:
-          '200':
-            description: Successful operation
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Teacher'
-              application/xml:
-                schema:
-                  $ref: '#/components/schemas/Teacher'
-          '500':
-            description: Internal Server Error
+                $ref: '#/components/schemas/Student'
 
+            description: Invalid ID supplied
+          '404':
+            description: Student not found
+          '405':
+            description: Validation exception
+    delete:
+      summary: Delete an existing student
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Student not found        
 
 components:
   schemas:
@@ -147,11 +101,11 @@ components:
           example: Vali
         birthday:
           type: string
+          format: date
           example: 2003-06-03
       xml:
         name: student
-
-       Teacher:
+    Teacher:
       type: object
       properties:
         id:
@@ -173,7 +127,10 @@ components:
                 type: string
                 example: web-service
               courseDuration:
-                type: string
-                example: 2h
+                type: integer
+                example: 2
       xml:
         name: teacher
+
+
+ 
