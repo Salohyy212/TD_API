@@ -73,7 +73,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Student'
-
             description: Invalid ID supplied
           '404':
             description: Student not found
@@ -85,8 +84,51 @@ paths:
         '204':
           description: No content
         '404':
-          description: Student not found        
-
+          description: Student not found
+  /teacher:
+    get:
+      tags:
+        - default
+      summary: Show the teacher
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+        '500':
+          description: Internal Server Error 
+    post:
+        summary: Add a newteacher
+        requestBody:
+          description: Create a new teacher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/x-www-form-urlencoded:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          required: true
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Teacher'
+              application/xml:
+                schema:
+                  $ref: '#/components/schemas/Teacher'
+          '500':
+            description: Internal Server Error
 components:
   schemas:
     Student:
@@ -132,5 +174,5 @@ components:
       xml:
         name: teacher
 
-
- 
+     
+        
