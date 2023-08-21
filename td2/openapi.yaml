@@ -151,7 +151,7 @@ components:
       xml:
         name: student
 
-    Teacher:
+       Teacher:
       type: object
       properties:
         id:
@@ -159,14 +159,14 @@ components:
           format: int64
           example: 1
         name:
-        type: string
-        example: Ryan
+          type: string
+          example: Ryan
         courses:
           type: array
           items:
             type: object
             properties:
-              coursName:
+              courseName:
                 type: string
                 example: API
               courseCode:
